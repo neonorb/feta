@@ -8,8 +8,10 @@
 #include <memory.h>
 #include <errors.h>
 
-uint8* defaultMemoryAllocator(size_t size){
-	throw MEMORY_ALLOCATOR_UNDEFINED;
+void* defaultMemoryAllocator(size_t size){
+	crash(MEMORY_ALLOCATOR_UNDEFINED);
+
+	return 0;
 }
 
 static MemoryManager memoryManager = {&defaultMemoryAllocator};
@@ -18,6 +20,6 @@ void setMemoryManager(MemoryManager memManger){
 	memoryManager = memManger;
 }
 
-void* getMemory(unsigned int size){
+void* getMemory(size_t size){
 	return memoryManager.allocate(size);
 }

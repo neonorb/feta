@@ -10,7 +10,7 @@
 
 #include <int.h>
 
-typedef uint8* (*MemoryAllocate)(size_t);
+typedef void* (*MemoryAllocate)(size_t);
 
 struct MemoryManager {
 	MemoryAllocate allocate;
@@ -18,6 +18,6 @@ struct MemoryManager {
 
 void setMemoryManager(MemoryManager memManger);
 
-void* getMemory(unsigned int size);
+void* getMemory(size_t size);
 
 #endif /* INCLUDE_MEMORY_H_ */
