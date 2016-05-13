@@ -59,7 +59,7 @@ bool List<T>::isLast(uint64 index) {
 
 template<typename T>
 uint64 List<T>::indexOf(T item) {
-	for (int i = 0; i < size(); i++) {
+	for (uint64 i = 0; i < size(); i++) {
 		if (get(i) == item) {
 			return i;
 		}
@@ -72,7 +72,7 @@ template<typename T>
 Element<T>* List<T>::getElement(uint64 index) {
 	Element<T>* element = first;
 
-	for (int i = 0; i < index - 1; i++) {
+	for (uint64 i = 0; i < index - 1; i++) {
 		if (element->next == 0) {
 			crash(INDEX_OUT_OF_BOUNDS);
 		}
