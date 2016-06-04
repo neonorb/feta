@@ -9,15 +9,23 @@
 #define INCLUDE_MEMORY_H_
 
 #include <int.h>
+#include <bool.h>
 
-typedef void* (*MemoryAllocate)(size_t);
+#define NULL 0
 
-struct MemoryManager {
-	MemoryAllocate allocate;
+class Deleteable {
+public:
+	int magic = 0xAAFF;
+	void destroy(){}
 };
 
-void setMemoryManager(MemoryManager memManger);
+void *malloc(size_t);
+void *realloc(void *, size_t);
+void *calloc(size_t, size_t);
+void free(void *);
 
-void* getMemory(size_t size);
+void* operator new(long unsigned int size);
+void operator delete(void* object);
+void operator delete(void* object, unsigned long size);
 
 #endif /* INCLUDE_MEMORY_H_ */

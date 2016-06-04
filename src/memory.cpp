@@ -5,21 +5,27 @@
  *      Author: chris
  */
 
+#include <int.h>
 #include <memory.h>
-#include <errors.h>
+#include <log.h>
 
-void* defaultMemoryAllocator(size_t size){
-	crash(MEMORY_ALLOCATOR_UNDEFINED);
-
-	return 0;
+void* operator new(long unsigned int size) {
+	return malloc(size);
 }
 
-static MemoryManager memoryManager = {&defaultMemoryAllocator};
+static void destory(void* object) {
+	Deleteable* deleteable = (Deleteable*) object;
+	if(deleteable->magic != 0xAAFF){
+		crash("trying to delete object thats not deletable");
+	}
+	deleteable->destroy();
 
-void setMemoryManager(MemoryManager memManger){
-	memoryManager = memManger;
+	free(object);
 }
 
-void* getMemory(size_t size){
-	return memoryManager.allocate(size);
+void operator delete(void* object) {
+	destory(object);
+}
+void operator delete(void* object, unsigned long size){
+	destory(object);
 }
