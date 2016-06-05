@@ -31,7 +31,7 @@ public:
 	T next();
 };
 
-template<typename T> class List{
+template<typename T> class List {
 private:
 	Element<T>* first;
 	Element<T>* last;
