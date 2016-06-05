@@ -10,16 +10,11 @@
 #include <log.h>
 
 void* operator new(long unsigned int size) {
-	return malloc(size);
+	void* thing = malloc(size);
+	return thing;
 }
 
 static void destory(void* object) {
-	Deleteable* deleteable = (Deleteable*) object;
-	if(deleteable->magic != 0xAAFF){
-		crash("trying to delete object thats not deletable");
-	}
-	deleteable->destroy();
-
 	free(object);
 }
 

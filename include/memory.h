@@ -10,14 +10,9 @@
 
 #include <int.h>
 #include <bool.h>
+#include <log.h>
 
 #define NULL 0
-
-class Deleteable {
-public:
-	int magic = 0xAAFF;
-	void destroy(){}
-};
 
 void *malloc(size_t);
 void *realloc(void *, size_t);

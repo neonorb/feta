@@ -15,13 +15,14 @@
 #include <string.h>
 #include <memory.h>
 
-template<typename T> class Element: Deleteable {
+template<typename T> class Element {
 public:
 	T value;
 	Element<T>* next;
+	Element<T>* previous;
 };
 
-template<typename T> class Iterator: Deleteable {
+template<typename T> class Iterator {
 private:
 	Element<T>* current;
 public:
@@ -30,29 +31,36 @@ public:
 	T next();
 };
 
-template<typename T> class List: Deleteable {
+template<typename T> class List{
 private:
 	Element<T>* first;
-	Element<T>* getElement(uint64 index);
+	Element<T>* last;
 	uint64 length = 0;
 
 public:
-	void destroy();
+	List<T>* destroy();
 
-	uint64 size();bool isEmpty();bool isLast(uint64 index);
+	uint64 size();bool isEmpty();
 	uint64 indexOf(T item);
 
+	bool isFirst(uint64 index);bool isFirst(Element<T>* element);bool isFirst(
+			T item);
+
+	bool isLast(uint64 index);bool isLast(Element<T>* element);bool isLast(
+			T item);
+
 	T get(uint64 index);
+	Element<T>* getElement(uint64 index);
 
 	void addElement(Element<T>* element);
 	void addElement(Element<T>* elemnt, uint64 index);
 	void add(T item);
 	void add(T item, uint64 index);
 
-	T removeElement(Element<T>* element);
-	T removeElement(uint64 index);
+	void removeElement(Element<T>* element);
+	Element<T>* removeElement(uint64 index);
 	T remove(uint64 index);
-	T remove(T item);
+	void remove(T item);
 
 	Iterator<T>* iterator();
 };
@@ -65,13 +73,20 @@ public:
 #include <log.h>
 
 template<typename T>
-void List<T>::destroy() {
+List<T>* List<T>::destroy() {
 	Element<T>* element = first;
+	Element<T>* next;
 
 	do {
 		removeElement(element);
-	} while ((element = first->next) != NULL);
+		next = element->next;
+		delete element;
+	} while ((element = next) != NULL);
+
+	return this;
 }
+
+// ---- simple stuffs ----
 
 template<typename T>
 uint64 List<T>::size() {
@@ -84,11 +99,6 @@ bool List<T>::isEmpty() {
 }
 
 template<typename T>
-bool List<T>::isLast(uint64 index) {
-	return index == size() - 1;
-}
-
-template<typename T>
 uint64 List<T>::indexOf(T item) {
 	for (uint64 i = 0; i < size(); i++) {
 		if (get(i) == item) {
@@ -97,6 +107,25 @@ uint64 List<T>::indexOf(T item) {
 	}
 
 	return -1;
+}
+
+// ---- isFirst ----
+
+template<typename T>
+bool List<T>::isFirst(Element<T>* element) {
+	return first == element;
+}
+
+// ---- isLast -----
+
+template<typename T>
+bool List<T>::isLast(uint64 index) {
+	return index == size() - 1;
+}
+
+template<typename T>
+bool List<T>::isLast(Element<T>* element) {
+	return last == element;
 }
 
 // ---- get ----
@@ -129,8 +158,9 @@ template<typename T>
 void List<T>::addElement(Element<T>* element) {
 	if (size() == 0) {
 		first = element;
+		last = element;
 	} else {
-		getElement(size() - 1)->next = element;
+		last->next = element;
 	}
 
 	length++;
@@ -138,7 +168,7 @@ void List<T>::addElement(Element<T>* element) {
 
 template<typename T>
 void List<T>::add(T item) {
-	Element<T>* element = (Element<T>*) malloc(sizeof(Element<T> ));
+	Element<T>* element = new Element<T>();
 	element->value = item;
 
 	addElement(element);
@@ -149,19 +179,22 @@ void List<T>::addElement(Element<T>* element, uint64 index) {
 	// update references
 	if (size() == 0) { // initial
 		first = element;
-	} else if (index == 0) { // at the beginning
-		Element<T>* after = getElement(index);
-		element->next = after;
-		first = element;
-	} else if (index == size()) { // at the end
-		Element<T>* before = getElement(index - 1);
-		before->next = element;
-	} else { // in the middle
-		Element<T>* before = getElement(index - 1);
-		Element<T>* after = getElement(index);
+		last = element;
+	} else {
+		Element<T>* existingElement = getElement(index);
+		if (isFirst(index)) { // at the beginning
+			Element<T>* after = existingElement;
+			element->next = after;
+			first = element;
+		} else if (index == size()) { // append at the end, cannot use isLast()
+			last->next = element;
+		} else { // in the middle
+			Element<T>* before = existingElement->previous;
+			Element<T>* after = element;
 
-		before->next = element;
-		element->next = after;
+			before->next = element;
+			element->next = after;
+		}
 	}
 
 	length++;
@@ -169,7 +202,7 @@ void List<T>::addElement(Element<T>* element, uint64 index) {
 
 template<typename T>
 void List<T>::add(T item, uint64 index) {
-	Element<T>* element = (Element<T>*) malloc(sizeof(Element<T> ));
+	Element<T>* element = new Element<T>();
 	element->value = item;
 
 	addElement(element, index);
@@ -179,16 +212,26 @@ void List<T>::add(T item, uint64 index) {
 // ---- remove ----
 
 template<typename T>
-T List<T>::removeElement(Element<T>* element) {
-	T item = element->value;
+void List<T>::removeElement(Element<T>* element) {
+	if (size() > 1) {
+		if (isFirst(element)) { // at the beginning and there is another element
+			first = element->next;
+		} else if (isLast(element)) { // at the end
+			Element<T>* before = element->previous;
+			before->next = 0;
+			last = before;
+		} else { // in the middle
+			Element<T>* before = element->previous;
+			Element<T>* after = element->next;
 
-	delete element;
-
-	return item;
+			before->next = after;
+		}
+	}
+	length--;
 }
 
 template<typename T>
-T List<T>::removeElement(uint64 index) {
+Element<T>* List<T>::removeElement(uint64 index) {
 	if (index >= size()) {
 		debug("index", index);
 		debug("size", size());
@@ -196,40 +239,23 @@ T List<T>::removeElement(uint64 index) {
 	}
 
 	Element<T>* element = getElement(index);
-
-	T item = element->value;
-
-	delete element;
-
-	// update references
-	if (size() > 1) {
-		if (index == 0) { // at the beginning and there is another element
-			first = getElement(index + 1);
-		} else if (isLast(index)) { // at the end
-			Element<T>* before = getElement(index - 1);
-			before->next = 0;
-		} else { // in the middle
-			Element<T>* before = getElement(index - 1);
-			Element<T>* after = getElement(index + 1);
-
-			before->next = after;
-		}
-	}
-	length--;
-
-	return item;
+	removeElement(element);
+	return element;
 }
 
 template<typename T>
 T List<T>::remove(uint64 index) {
-	return removeElement(removeElement(index));
+	Element<T>* element = removeElement(index);
+	T item = element->value;
+	delete element;
+	return item;
 }
 
 template<typename T>
-T List<T>::remove(T item) {
+void List<T>::remove(T item) { // TODO optomize
 	for (uint64 i = 0; i < size(); i++) {
 		if (get(i) == item) {
-			return remove(i);
+			remove(i);
 		}
 	}
 }
