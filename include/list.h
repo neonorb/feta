@@ -58,7 +58,6 @@ public:
 	void add(T item, uint64 index);
 
 	void removeElement(Element<T>* element);
-	Element<T>* removeElement(uint64 index);
 	T remove(uint64 index);
 	void remove(T item);
 
@@ -140,7 +139,7 @@ Element<T>* List<T>::getElement(uint64 index) {
 
 	Element<T>* element = first;
 
-	for (uint64 i = 0; i < index; i++) {
+	for (uint64 i = 1; i < index; i++) {
 		element = element->next;
 	}
 
@@ -161,6 +160,7 @@ void List<T>::addElement(Element<T>* element) {
 		last = element;
 	} else {
 		last->next = element;
+		last = element;
 	}
 
 	length++;
@@ -231,7 +231,7 @@ void List<T>::removeElement(Element<T>* element) {
 }
 
 template<typename T>
-Element<T>* List<T>::removeElement(uint64 index) {
+T List<T>::remove(uint64 index) {
 	if (index >= size()) {
 		debug("index", index);
 		debug("size", size());
@@ -240,12 +240,7 @@ Element<T>* List<T>::removeElement(uint64 index) {
 
 	Element<T>* element = getElement(index);
 	removeElement(element);
-	return element;
-}
 
-template<typename T>
-T List<T>::remove(uint64 index) {
-	Element<T>* element = removeElement(index);
 	T item = element->value;
 	delete element;
 	return item;

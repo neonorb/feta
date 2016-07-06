@@ -9,9 +9,14 @@
 #define INCLUDE_STRING_H_
 
 #include <int.h>
+#include <bool.h>
 
 typedef const char* String;
 
 size_t strlen(String str);
+bool strequ(String one, String two);
+bool stringStartsWith(String string, String beginning);
+
+String substring(String string, uint64 start, uint64 end);
 
 #endif /* INCLUDE_STRING_H_ */

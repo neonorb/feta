@@ -14,6 +14,7 @@ void warning(String message);
 void fault(String message);
 void log_write(LogType, String);
 
+void write_serial(char c);
 void debug(String name, uint64 value);
 void debug(String name, uint64 value, uint8 base);
 void debug(String message);

@@ -6,6 +6,7 @@
  */
 
 #include <string.h>
+#include <memory.h>
 
 size_t strlen(String str) {
 	const char* char_ptr;
@@ -74,4 +75,48 @@ size_t strlen(String str) {
 			}
 		}
 	}
+}
+
+bool strequ(String one, String two) {
+	size_t oneLength = strlen(one);
+	size_t twoLength = strlen(two);
+
+	if (oneLength != twoLength) {
+		return false;
+	}
+
+	for (uint64 i = 0; i < oneLength; i++) {
+		if (one[i] != two[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+String substring(String string, uint64 start, uint64 end) {
+	char* newString = (char*) malloc(end - start);
+
+	for (uint64 i = start; i < end; i++) {
+		newString[i - start] = string[i];
+	}
+
+	return newString;
+}
+
+bool stringStartsWith(String string, String beginning) {
+	size_t stringLength = strlen(string);
+	size_t beginningLength = strlen(beginning);
+
+	if (stringLength < beginningLength) {
+		return false;
+	}
+
+	for (uint64 i = 0; i < beginningLength; i++) {
+		if (string[i] != beginning[i]) {
+			return false;
+		}
+	}
+
+	return true;
 }
