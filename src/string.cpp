@@ -95,11 +95,13 @@ bool strequ(String one, String two) {
 }
 
 String substring(String string, uint64 start, uint64 end) {
-	char* newString = (char*) malloc(end - start);
+	char* newString = (char*) malloc(end - start + 1);
 
 	for (uint64 i = start; i < end; i++) {
 		newString[i - start] = string[i];
 	}
+
+	newString[end - start] = 0;
 
 	return newString;
 }

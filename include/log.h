@@ -4,9 +4,7 @@
 #include <string.h>
 
 typedef enum {
-	NORMAL,
-	WARNING,
-	FAULT
+	NORMAL, WARNING, FAULT
 } LogType;
 
 void log(String message);
