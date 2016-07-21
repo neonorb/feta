@@ -15,8 +15,7 @@ private:
 public:
 	Stack();
 	Stack(T initial);
-
-	void destroy();
+	~Stack();
 
 	int size();
 
@@ -37,8 +36,7 @@ Stack<T>::Stack(T initial) {
 }
 
 template<typename T>
-void Stack<T>::destroy() {
-	list.destroy();
+Stack<T>::~Stack() {
 }
 
 // ---- methods ----

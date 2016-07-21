@@ -14,10 +14,19 @@
 
 #define NULL 0
 
-void *malloc(size_t);
-void *realloc(void *, size_t);
-void *calloc(size_t, size_t);
-void free(void *);
+#define MEMORY_LOG
+
+#ifdef MEMORY_LOG
+void dumpAllocated();
+#endif
+
+//void *malloc(size_t);
+//void *realloc(void*, size_t);
+//void *calloc(size_t, size_t);
+//void free(void *);
+
+void* create(long unsigned int size);
+void destroy(void*);
 
 void* operator new(long unsigned int size);
 void operator delete(void* object);

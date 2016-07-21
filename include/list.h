@@ -38,7 +38,7 @@ private:
 	uint64 length = 0;
 
 public:
-	List<T>* destroy();
+	~List();
 
 	uint64 size();bool isEmpty();
 	uint64 indexOf(T item);
@@ -62,7 +62,7 @@ public:
 	void remove(T item);
 	void clear();
 
-	Iterator<T>* iterator();
+	Iterator<T> iterator();
 };
 
 // -- implementation --
@@ -73,17 +73,8 @@ public:
 #include <log.h>
 
 template<typename T>
-List<T>* List<T>::destroy() {
-	Element<T>* element = first;
-	Element<T>* next;
-
-	do {
-		removeElement(element);
-		next = element->next;
-		delete element;
-	} while ((element = next) != NULL);
-
-	return this;
+List<T>::~List() {
+	clear();
 }
 
 // ---- simple stuffs ----
@@ -269,8 +260,8 @@ void List<T>::clear() {
 // ---- iterator ----
 
 template<typename T>
-Iterator<T>* List<T>::iterator() {
-	return new Iterator<T>(first);
+Iterator<T> List<T>::iterator() {
+	return Iterator<T>(first);
 }
 
 template<typename T>
