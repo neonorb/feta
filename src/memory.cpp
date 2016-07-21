@@ -25,11 +25,13 @@ void stop() {
 }
 
 void dumpAllocated() {
+	debug("-----------------------------");
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] != NULL) {
 			debug("ALLOCATED", (uint64) allocatedThings[i]);
 		}
 	}
+	debug("-----------------------------");
 }
 #endif
 
