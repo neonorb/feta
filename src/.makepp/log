@@ -1,0 +1,8 @@
+3/usr/bin/makepp -C src
+VERSION2.0.98.55.22.1x86_64-linux-gnu-thread-multi
+DEBUG0
+LOAD_DEFAULT156baa8src11240e8/home/chris/git/feta
+LOAD_INCL1078468makepp_builtin_rules.mke68bb0/usr/share/makepp156a2e0makepp_default_makefile.mke68bb0
+LOAD_END156a2e0
+*** error: no targets specified and no default target in makefile `/usr/share/makepp/makepp_default_makefile.mk'
+N_FILES000

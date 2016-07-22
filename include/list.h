@@ -28,6 +28,7 @@ private:
 public:
 	Iterator(Element<T>* current);
 
+	bool hasNext();
 	T next();
 };
 
@@ -243,10 +244,14 @@ T List<T>::remove(uint64 index) {
 
 template<typename T>
 void List<T>::remove(T item) { // TODO optomize
-	for (uint64 i = 0; i < size(); i++) {
-		if (get(i) == item) {
+	Iterator<T> itemIterator = iterator();
+	uint64 i = 0;
+	while (itemIterator.hasNext()) {
+		T it = itemIterator.next();
+		if (it == item) {
 			remove(i);
 		}
+		i++;
 	}
 }
 
@@ -270,12 +275,14 @@ Iterator<T>::Iterator(Element<T>* current) {
 }
 
 template<typename T>
+bool Iterator<T>::hasNext() {
+	return current != NULL;
+}
+
+template<typename T>
 T Iterator<T>::next() {
-	T value = NULL;
-	if (current != NULL) {
-		value = current->value;
-		current = current->next;
-	}
+	T value = current->value;
+	current = current->next;
 
 	return value;
 }
