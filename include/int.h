@@ -8,8 +8,6 @@
 #ifndef INCLUDE_INT_H_
 #define INCLUDE_INT_H_
 
-#ifndef __int8_defined
-# define __int8_defined
 typedef signed char             int8;
 typedef short int               int16;
 typedef int                     int32;
@@ -19,15 +17,11 @@ typedef long int                int64;
 __extension__
 typedef long long int           int64;
 # endif
-#endif
 
 /* Unsigned.  */
 typedef unsigned char           uint8;
 typedef unsigned short int      uint16;
-#ifndef __uint32_t_defined
 typedef unsigned int            uint32;
-# define __uint32_t_defined
-#endif
 #if __WORDSIZE == 64
 typedef unsigned long int       uint64;
 #else
