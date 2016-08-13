@@ -7,9 +7,7 @@
 
 #include <icxxabi.h>
 
-#ifdef __cplusplus
 extern "C" {
-#endif
 
 atexit_func_entry_t __atexit_funcs[ATEXIT_MAX_FUNCS];
 uarch_t __atexit_func_count = 0;
@@ -26,7 +24,6 @@ int __cxa_atexit(void (*f)(void *), void *objptr, void *dso) {
 	__atexit_func_count++;
 	return 0; /*I would prefer if functions returned 1 on success, but the ABI says...*/
 }
-;
 
 void __cxa_finalize(void *f) {
 	uarch_t i = __atexit_func_count;
@@ -57,10 +54,10 @@ void __cxa_finalize(void *f) {
 				 * This will result in the processor executing trash, and...we don't want that.
 				 **/
 				(*__atexit_funcs[i].destructor_func)(__atexit_funcs[i].obj_ptr);
-			};
-		};
+			}
+		}
 		return;
-	};
+	}
 
 	for (; i >= 0; --i) {
 		/*
@@ -97,12 +94,8 @@ void __cxa_finalize(void *f) {
 			 * Notice that we didn't decrement __atexit_func_count: this is because this algorithm
 			 * requires patching to deal with the FIXME outlined above.
 			 **/
-		};
-	};
+		}
+	}
 }
-;
 
-#ifdef __cplusplus
 }
-;
-#endif

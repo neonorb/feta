@@ -11,7 +11,7 @@
 #include <int.h>
 #include <bool.h>
 
-typedef const char* String;
+typedef const wchar_t* String;
 
 size_t strlen(String str);
 bool strequ(String one, String two);

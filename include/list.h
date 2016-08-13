@@ -125,8 +125,8 @@ bool List<T>::isLast(Element<T>* element) {
 template<typename T>
 Element<T>* List<T>::getElement(uint64 index) {
 	if (index >= size()) {
-		debug("index", index);
-		debug("size", size());
+		debug(L"index", index);
+		debug(L"size", size());
 		crash(INDEX_OUT_OF_BOUNDS);
 	}
 
@@ -229,8 +229,8 @@ void List<T>::removeElement(Element<T>* element) {
 template<typename T>
 T List<T>::remove(uint64 index) {
 	if (index >= size()) {
-		debug("index", index);
-		debug("size", size());
+		debug(L"index", index);
+		debug(L"size", size());
 		crash(INDEX_OUT_OF_BOUNDS);
 	}
 

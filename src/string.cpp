@@ -9,7 +9,7 @@
 #include <memory.h>
 
 size_t strlen(String str) {
-	const char* char_ptr;
+	const wchar_t* char_ptr;
 	const unsigned long int *longword_ptr;
 	unsigned long int longword, himagic, lomagic;
 
@@ -53,7 +53,7 @@ size_t strlen(String str) {
 			/* Which of the bytes was the zero?  If none of them were, it was
 			 a misfire; continue the search.  */
 
-			const char *cp = (const char *) (longword_ptr - 1);
+			const wchar_t* cp = (const wchar_t*) (longword_ptr - 1);
 
 			if (cp[0] == 0)
 				return cp - str;
@@ -95,7 +95,7 @@ bool strequ(String one, String two) {
 }
 
 String substring(String string, uint64 start, uint64 end) {
-	char* newString = (char*) create(end - start + 1);
+	wchar_t* newString = (wchar_t*) create(2 * (end - start) + 1);
 
 	for (uint64 i = start; i < end; i++) {
 		newString[i - start] = string[i];
