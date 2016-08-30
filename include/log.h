@@ -18,6 +18,10 @@ void debug(String name, uint64 value, uint8 base);
 void debug(String message);
 void debugPrint(String message);
 
+void status(String message);
+void statusDone();
+void statusFail();
+
 void crash(String message);
 
 #endif /* LOG_H_ */
