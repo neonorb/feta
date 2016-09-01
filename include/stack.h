@@ -22,6 +22,7 @@ public:
 	void push(T item);
 	T pop();
 	T peek();
+	T peek(uint64 distance);
 };
 
 // ---- constructors ----
@@ -58,7 +59,12 @@ T Stack<T>::pop() {
 
 template<typename T>
 T Stack<T>::peek() {
-	return list.get(list.size() - 1);
+	return peek(1);
+}
+
+template<typename T>
+T Stack<T>::peek(uint64 distance) {
+	return list.get(list.size() - distance);
 }
 
 #endif /* INCLUDE_STACK_H_ */
