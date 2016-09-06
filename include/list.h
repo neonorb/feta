@@ -36,9 +36,10 @@ template<typename T> class List {
 private:
 	Element<T>* first;
 	Element<T>* last;
-	uint64 length = 0;
+	uint64 length;
 
 public:
+	List();
 	~List();
 
 	uint64 size();bool isEmpty();
@@ -74,8 +75,14 @@ public:
 #include <log.h>
 
 template<typename T>
+List<T>::List() {
+	length = 0;
+	first = NULL;
+	last = NULL;
+}
+
+template<typename T>
 List<T>::~List() {
-	clear();
 }
 
 // ---- simple stuffs ----
@@ -243,7 +250,7 @@ T List<T>::remove(uint64 index) {
 }
 
 template<typename T>
-void List<T>::remove(T item) { // TODO optomize
+void List<T>::remove(T item) {
 	Iterator<T> itemIterator = iterator();
 	uint64 i = 0;
 	while (itemIterator.hasNext()) {

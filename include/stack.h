@@ -11,7 +11,7 @@
 template<typename T>
 class Stack {
 private:
-	List<T> list;
+	List<T> list = List<T>();
 public:
 	Stack();
 	Stack(T initial);
