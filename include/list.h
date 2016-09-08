@@ -26,6 +26,7 @@ template<typename T> class Iterator {
 private:
 	Element<T>* current;
 public:
+	Iterator();
 	Iterator(Element<T>* current);
 
 	bool hasNext();
@@ -111,8 +112,18 @@ uint64 List<T>::indexOf(T item) {
 // ---- isFirst ----
 
 template<typename T>
+bool List<T>::isFirst(uint64 index) {
+	return index == 0;
+}
+
+template<typename T>
 bool List<T>::isFirst(Element<T>* element) {
 	return first == element;
+}
+
+template<typename T>
+bool List<T>::isFirst(T item) {
+	return first->value == item;
 }
 
 // ---- isLast -----
@@ -127,10 +138,16 @@ bool List<T>::isLast(Element<T>* element) {
 	return last == element;
 }
 
+template<typename T>
+bool List<T>::isLast(T item) {
+	return last->value == item;
+}
+
 // ---- get ----
 
 template<typename T>
 Element<T>* List<T>::getElement(uint64 index) {
+	// TODO optimize for searching from last element too
 	if (index >= size()) {
 		debug(L"index", index);
 		debug(L"size", size());
@@ -155,18 +172,7 @@ T List<T>::get(uint64 index) {
 
 template<typename T>
 void List<T>::addElement(Element<T>* element) {
-	if (length == 0) {
-		first = element;
-		last = element;
-	} else {
-		Element<T>* previous = last;
-		last = element;
-
-		previous->next = element;
-		element->previous = previous;
-	}
-
-	length++;
+	addElement(element, length);
 }
 
 template<typename T>
@@ -179,24 +185,38 @@ void List<T>::add(T item) {
 
 template<typename T>
 void List<T>::addElement(Element<T>* element, uint64 index) {
+	// TODO make addElementAfter and addElementBefore methods, call those from here
 	// update references
-	if (size() == 0) { // initial
+	if (length == 0) { // initial
 		first = element;
 		last = element;
+		element->next = NULL;
+		element->previous = NULL;
 	} else {
-		Element<T>* existingElement = getElement(index);
-		if (isFirst(index)) { // at the beginning
-			Element<T>* after = existingElement;
-			element->next = after;
-			first = element;
-		} else if (index == size()) { // append at the end, cannot use isLast()
-			last->next = element;
-		} else { // in the middle
-			Element<T>* before = existingElement->previous;
-			Element<T>* after = element;
+		if (index == 0) { // at the beginning
+			Element<T>* newSecond = first;
+			newSecond->previous = element;
 
-			before->next = element;
-			element->next = after;
+			first = element;
+			element->previous = NULL;
+			element->next = newSecond;
+		} else if (index == length) { // at the end
+			Element<T>* newSecondToLast = last;
+			newSecondToLast->next = element;
+
+			last = element;
+			element->previous = newSecondToLast;
+			element->next = NULL;
+		} else { // in the middle
+			Element<T>* elementInTheWay = getElement(index);
+			Element<T>* stillBefore = elementInTheWay->previous;
+
+			stillBefore->next = element;
+
+			element->previous = stillBefore;
+			element->next = elementInTheWay;
+
+			elementInTheWay->previous = element;
 		}
 	}
 
@@ -216,19 +236,26 @@ void List<T>::add(T item, uint64 index) {
 
 template<typename T>
 void List<T>::removeElement(Element<T>* element) {
-	if (size() > 1) {
-		if (isFirst(element)) { // at the beginning and there is another element
-			first = element->next;
-		} else if (isLast(element)) { // at the end
-			Element<T>* before = element->previous;
-			before->next = 0;
-			last = before;
+	if (length > 1) {
+		if (first == element) { // at the beginning and there is another element
+			Element<T>* newFirst = element->next;
+			first = newFirst;
+			newFirst->previous = NULL;
+		} else if (last == element) { // at the end
+			Element<T>* newLast = element->previous;
+			newLast->next = NULL;
+			last = newLast;
 		} else { // in the middle
-			Element<T>* before = element->previous;
-			Element<T>* after = element->next;
+			Element<T>* samePrevious = element->previous;
+			Element<T>* newReplacement = element->next;
 
-			before->next = after;
+			samePrevious->next = newReplacement;
+			newReplacement->previous = samePrevious;
 		}
+	} else {
+		// remove only element
+		first = NULL;
+		last = NULL;
 	}
 	length--;
 }
@@ -242,10 +269,11 @@ T List<T>::remove(uint64 index) {
 	}
 
 	Element<T>* element = getElement(index);
-	removeElement(element);
-
 	T item = element->value;
+
+	removeElement(element);
 	delete element;
+
 	return item;
 }
 
@@ -277,6 +305,11 @@ Iterator<T> List<T>::iterator() {
 }
 
 template<typename T>
+Iterator<T>::Iterator() {
+	this->current = NULL;
+}
+
+template<typename T>
 Iterator<T>::Iterator(Element<T>* current) {
 	this->current = current;
 }
@@ -288,6 +321,10 @@ bool Iterator<T>::hasNext() {
 
 template<typename T>
 T Iterator<T>::next() {
+	if (!hasNext()) {
+		crash(L"there is no next element");
+	}
+
 	T value = current->value;
 	current = current->next;
 
