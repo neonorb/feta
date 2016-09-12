@@ -16,9 +16,9 @@ void free(void *);
 
 #ifdef MEMORY_LOG
 #define ALLOCATED_LENGTH 4096
-static void* allocatedThings[ALLOCATED_LENGTH] = {NULL};
+static void* allocatedThings[ALLOCATED_LENGTH] = { NULL };
 #define watchCount 1
-static uint64 watchLocations[] = {0x11f410};
+static uint64 watchLocations[] = { 0x11f410 };
 uint64 allocatedCount;
 
 void stop() {
