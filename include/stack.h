@@ -38,6 +38,7 @@ Stack<T>::Stack(T initial) {
 
 template<typename T>
 Stack<T>::~Stack() {
+	list.clear();
 }
 
 // ---- methods ----
