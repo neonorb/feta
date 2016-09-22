@@ -55,17 +55,25 @@ void Stack<T>::push(T item) {
 
 template<typename T>
 T Stack<T>::pop() {
+	if(list.size() == 0) {
+		crash(L"no more elements to pop");
+	}
+
 	return list.remove(list.size() - 1);
 }
 
 template<typename T>
 T Stack<T>::peek() {
-	return peek(1);
+	return peek(0);
 }
 
 template<typename T>
 T Stack<T>::peek(uint64 distance) {
-	return list.get(list.size() - distance);
+	if(list.size() - distance <= 0) {
+		crash(L"not enough elements to peek here");
+	}
+
+	return list.get(list.size() - distance - 1);
 }
 
 #endif /* INCLUDE_STACK_H_ */
