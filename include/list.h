@@ -8,7 +8,7 @@
 #ifndef INCLUDE_LIST_H_
 #define INCLUDE_LIST_H_
 
-// -- declaration --
+template<typename T> class List;
 
 #include <int.h>
 #include <bool.h>
@@ -25,9 +25,10 @@ public:
 template<typename T> class Iterator {
 private:
 	Element<T>* current;
+	List<T>* list;
 public:
 	Iterator();
-	Iterator(Element<T>* current);
+	Iterator(Element<T>* current, List<T>* list);
 
 	bool hasNext();
 	T next();
@@ -42,6 +43,8 @@ private:
 public:
 	List();
 	~List();
+
+	bool dirty;
 
 	uint64 size();bool isEmpty();
 	uint64 indexOf(T item);
@@ -80,6 +83,7 @@ List<T>::List() {
 	length = 0;
 	first = NULL;
 	last = NULL;
+	dirty = false;
 }
 
 template<typename T>
@@ -222,6 +226,7 @@ void List<T>::addElement(Element<T>* element, uint64 index) {
 	}
 
 	length++;
+	dirty = true;
 }
 
 template<typename T>
@@ -259,6 +264,7 @@ void List<T>::removeElement(Element<T>* element) {
 		last = NULL;
 	}
 	length--;
+	dirty = true;
 }
 
 template<typename T>
@@ -302,26 +308,35 @@ void List<T>::clear() {
 
 template<typename T>
 Iterator<T> List<T>::iterator() {
-	return Iterator<T>(first);
+	dirty = false;
+	return Iterator<T>(first, this);
 }
 
 template<typename T>
 Iterator<T>::Iterator() {
 	this->current = NULL;
+	this->list = NULL;
 }
 
 template<typename T>
-Iterator<T>::Iterator(Element<T>* current) {
+Iterator<T>::Iterator(Element<T>* current, List<T>* list) {
 	this->current = current;
+	this->list = list;
 }
 
 template<typename T>
 bool Iterator<T>::hasNext() {
+	if (list->dirty) {
+		crash(L"concurrent modification");
+	}
 	return current != NULL;
 }
 
 template<typename T>
 T Iterator<T>::next() {
+	if (list->dirty) {
+		crash(L"concurrent modification");
+	}
 	if (!hasNext()) {
 		crash(L"there is no next element");
 	}
