@@ -291,10 +291,11 @@ void List<T>::remove(T item) {
 	while (itemIterator.hasNext()) {
 		T it = itemIterator.next();
 		if (it == item) {
-			remove(i);
+			break;
 		}
 		i++;
 	}
+	remove(i);
 }
 
 template<typename T>
