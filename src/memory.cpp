@@ -18,7 +18,7 @@ void free(void *);
 #define ALLOCATED_LENGTH 4096
 static void* allocatedThings[ALLOCATED_LENGTH] = { NULL };
 #define watchCount 1
-static uint64 watchLocations[] = { 0x11f410 };
+static uint64 watchLocations[] = { };
 uint64 allocatedCount;
 
 void stop() {
@@ -32,6 +32,10 @@ void dumpAllocated() {
 		}
 	}
 	debug(L"-----------------------------");
+}
+
+uint64 getAllocatedCount() {
+	return allocatedCount;
 }
 #endif
 

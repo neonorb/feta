@@ -14,9 +14,10 @@
 
 #define NULL 0
 
-#define MEMORY_LOG
+#define MEMORY_LOG // TODO remove
 
 #ifdef MEMORY_LOG
+uint64 getAllocatedCount();
 void dumpAllocated();
 #endif
 
