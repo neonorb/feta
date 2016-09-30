@@ -15,11 +15,13 @@ void *calloc(size_t, size_t);
 void free(void *);
 
 #ifdef MEMORY_LOG
+
 #define ALLOCATED_LENGTH 4096
 static void* allocatedThings[ALLOCATED_LENGTH] = { NULL };
-#define watchCount 1
-static uint64 watchLocations[] = { };
 uint64 allocatedCount;
+
+#define watchCount 0
+static uint64 watchLocations[] = { };
 
 void stop() {
 }
@@ -45,6 +47,7 @@ void* create(long unsigned int size) {
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == NULL) {
 			allocatedThings[i] = thing;
+			allocatedCount++;
 			break;
 		}
 	}
@@ -54,7 +57,6 @@ void* create(long unsigned int size) {
 			break;
 		}
 	}
-	allocatedCount++;
 #endif
 	return thing;
 }
@@ -65,10 +67,10 @@ void destroy(void* object) {
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == object) {
 			allocatedThings[i] = NULL;
+			allocatedCount--;
 			break;
 		}
 	}
-	allocatedCount--;
 #endif
 }
 
