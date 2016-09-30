@@ -21,11 +21,6 @@ uint64 getAllocatedCount();
 void dumpAllocated();
 #endif
 
-//void *malloc(size_t);
-//void *realloc(void*, size_t);
-//void *calloc(size_t, size_t);
-//void free(void *);
-
 void* create(long unsigned int size);
 void destroy(void*);
 
