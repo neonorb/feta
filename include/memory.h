@@ -12,6 +12,17 @@
 #include <bool.h>
 #include <log.h>
 
+namespace fetaimpl {
+
+void* malloc(feta::size);
+//void *realloc(void*, size_t);
+//void *calloc(size_t, size_t);
+void free(void*);
+
+}
+
+namespace feta {
+
 #define NULL 0
 
 #define MEMORY_LOG // TODO remove
@@ -23,6 +34,8 @@ void dumpAllocated();
 
 void* create(long unsigned int size);
 void destroy(void*);
+
+}
 
 void* operator new(long unsigned int size);
 void operator delete(void* object);

@@ -8,6 +8,8 @@
 #ifndef INCLUDE_STACK_H_
 #define INCLUDE_STACK_H_
 
+namespace feta {
+
 template<typename T>
 class Stack {
 private:
@@ -55,8 +57,8 @@ void Stack<T>::push(T item) {
 
 template<typename T>
 T Stack<T>::pop() {
-	if(list.size() == 0) {
-		crash(L"no more elements to pop");
+	if (list.size() == 0) {
+		crash("no more elements to pop");
 	}
 
 	return list.remove(list.size() - 1);
@@ -69,11 +71,13 @@ T Stack<T>::peek() {
 
 template<typename T>
 T Stack<T>::peek(uint64 distance) {
-	if(list.size() - distance <= 0) {
-		crash(L"not enough elements to peek here");
+	if (list.size() - distance <= 0) {
+		crash("not enough elements to peek here");
 	}
 
 	return list.get(list.size() - distance - 1);
+}
+
 }
 
 #endif /* INCLUDE_STACK_H_ */

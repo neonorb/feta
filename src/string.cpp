@@ -8,8 +8,10 @@
 #include <string.h>
 #include <memory.h>
 
-size_t strlen(String str) {
-	const wchar_t* char_ptr;
+namespace feta {
+
+size strlen(String str) {
+	String char_ptr;
 	const unsigned long int *longword_ptr;
 	unsigned long int longword, himagic, lomagic;
 
@@ -53,7 +55,7 @@ size_t strlen(String str) {
 			/* Which of the bytes was the zero?  If none of them were, it was
 			 a misfire; continue the search.  */
 
-			const wchar_t* cp = (const wchar_t*) (longword_ptr - 1);
+			String cp = (String) (longword_ptr - 1);
 
 			if (cp[0] == 0)
 				return cp - str;
@@ -75,11 +77,14 @@ size_t strlen(String str) {
 			}
 		}
 	}
+
+	crash("strlen should never reach this point");
+	return 0;
 }
 
 bool strequ(String one, String two) {
-	size_t oneLength = strlen(one);
-	size_t twoLength = strlen(two);
+	size oneLength = strlen(one);
+	size twoLength = strlen(two);
 
 	if (oneLength != twoLength) {
 		return false;
@@ -95,7 +100,7 @@ bool strequ(String one, String two) {
 }
 
 String substring(String string, uint64 start, uint64 end) {
-	wchar_t* newString = (wchar_t*) create(2 * (end - start) + 1);
+	strchar* newString = (strchar*) create(sizeof(strchar) * (end - start) + 1);
 
 	for (uint64 i = start; i < end; i++) {
 		newString[i - start] = string[i];
@@ -107,8 +112,8 @@ String substring(String string, uint64 start, uint64 end) {
 }
 
 bool stringStartsWith(String string, String beginning) {
-	size_t stringLength = strlen(string);
-	size_t beginningLength = strlen(beginning);
+	size stringLength = strlen(string);
+	size beginningLength = strlen(beginning);
 
 	if (stringLength < beginningLength) {
 		return false;
@@ -121,4 +126,53 @@ bool stringStartsWith(String string, String beginning) {
 	}
 
 	return true;
+}
+
+strchar returnedString[10];
+String toString(int value, int base) {
+	strchar* str = returnedString;
+	strchar* rc;
+	strchar* ptr;
+	strchar* low;
+	// Check for supported base.
+	if (base < 2 || base > 36) {
+		*str = '\0';
+		return str;
+	}
+	rc = ptr = str;
+	// Set '-' for negative decimals.
+	if (value < 0 && base == 10) {
+		*ptr++ = '-';
+	}
+	// Remember where the numbers start.
+	low = ptr;
+	// The actual conversion.
+	do {
+		// Modulo is negative for negative value. This trick makes abs() unnecessary.
+		*ptr++ =
+				"zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz"[35
+						+ value % base];
+		value /= base;
+	} while (value);
+	// Terminating the string.
+	*ptr-- = '\0';
+	// Invert the numbers.
+	while (low < ptr) {
+		strchar tmp = *low;
+		*low++ = *ptr;
+		*ptr-- = tmp;
+	}
+	return rc;
+}
+
+String operator ""_H(const strchar* arr, size length) {
+	strchar* str = (strchar*) create(length * sizeof(strchar) + 1);
+
+	for (uint64 i = 0; i < length; i++) {
+		str[i] = arr[i];
+	}
+
+	return (String) str;
+}
+
 }

@@ -8,27 +8,21 @@
 #ifndef INCLUDE_INT_H_
 #define INCLUDE_INT_H_
 
-typedef signed char             int8;
-typedef short int               int16;
-typedef int                     int32;
-# if __WORDSIZE == 64
-typedef long int                int64;
-# else
-__extension__
-typedef long long int           int64;
-# endif
+namespace feta {
+
+typedef signed char int8;
+typedef signed short int16;
+typedef signed int int32;
+typedef signed long int64;
 
 /* Unsigned.  */
-typedef unsigned char           uint8;
-typedef unsigned short int      uint16;
-typedef unsigned int            uint32;
-#if __WORDSIZE == 64
-typedef unsigned long int       uint64;
-#else
-__extension__
-typedef unsigned long long int  uint64;
-#endif
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef unsigned int uint32;
+typedef unsigned long uint64;
 
-typedef uint32 size_t;
+typedef uint64 size;
+
+}
 
 #endif /* INCLUDE_INT_H_ */

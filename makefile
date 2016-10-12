@@ -2,7 +2,7 @@
 
 NAME=feta
 
-CSOURCES=icxxabi list memory string
+CSOURCES=list memory string log
 ASOURCES=
 
 LIBS=
@@ -11,3 +11,5 @@ LIBS=
 
 -include ../make-base/make-base.mk
 -include ../make-base/make-lib.mk
+
+CFLAGS+=-nostdlib

@@ -10,8 +10,11 @@
 
 #include <int.h>
 
-#define bool uint8
+namespace feta {
+
 #define true 1
 #define false 0
+
+}
 
 #endif /* INCLUDE_BOOL_H_ */

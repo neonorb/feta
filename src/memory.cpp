@@ -9,10 +9,7 @@
 #include <memory.h>
 #include <log.h>
 
-void *malloc(size_t);
-void *realloc(void*, size_t);
-void *calloc(size_t, size_t);
-void free(void *);
+namespace feta {
 
 #ifdef MEMORY_LOG
 
@@ -27,13 +24,13 @@ void stop() {
 }
 
 void dumpAllocated() {
-	debug(L"-----------------------------");
+	debug("-----------------------------");
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] != NULL) {
-			debug(L"ALLOCATED", (uint64) allocatedThings[i]);
+			debug("ALLOCATED", (uint64) allocatedThings[i]);
 		}
 	}
-	debug(L"-----------------------------");
+	debug("-----------------------------");
 }
 
 uint64 getAllocatedCount() {
@@ -42,7 +39,7 @@ uint64 getAllocatedCount() {
 #endif
 
 void* create(long unsigned int size) {
-	void* thing = malloc(size);
+	void* thing = fetaimpl::malloc(size);
 #ifdef MEMORY_LOG
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == NULL) {
@@ -62,7 +59,7 @@ void* create(long unsigned int size) {
 }
 
 void destroy(void* object) {
-	free(object);
+	fetaimpl::free(object);
 #ifdef MEMORY_LOG
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == object) {
@@ -74,13 +71,15 @@ void destroy(void* object) {
 #endif
 }
 
+}
+
 void* operator new(long unsigned int size) {
-	return create(size);
+	return feta::create(size);
 }
 
 void operator delete(void* object) {
-	destroy(object);
+	feta::destroy(object);
 }
 void operator delete(void* object, unsigned long size) {
-	destroy(object);
+	feta::destroy(object);
 }

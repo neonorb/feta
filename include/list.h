@@ -8,12 +8,16 @@
 #ifndef INCLUDE_LIST_H_
 #define INCLUDE_LIST_H_
 
+namespace feta {
 template<typename T> class List;
+}
 
 #include <int.h>
 #include <bool.h>
 #include <string.h>
 #include <memory.h>
+
+namespace feta {
 
 template<typename T> class Element {
 public:
@@ -46,14 +50,17 @@ public:
 
 	bool dirty;
 
-	uint64 size();bool isEmpty();
+	uint64 size();
+	bool isEmpty();
 	uint64 indexOf(T item);
 
-	bool isFirst(uint64 index);bool isFirst(Element<T>* element);bool isFirst(
-			T item);
+	bool isFirst(uint64 index);
+	bool isFirst(Element<T>* element);
+	bool isFirst(T item);
 
-	bool isLast(uint64 index);bool isLast(Element<T>* element);bool isLast(
-			T item);
+	bool isLast(uint64 index);
+	bool isLast(Element<T>* element);
+	bool isLast(T item);
 
 	T get(uint64 index);
 	Element<T>* getElement(uint64 index);
@@ -154,8 +161,8 @@ template<typename T>
 Element<T>* List<T>::getElement(uint64 index) {
 	// TODO optimize for searching from last element too
 	if (index >= size()) {
-		debug(L"index", index);
-		debug(L"size", size());
+		debug("index", index);
+		debug("size", size());
 		crash(INDEX_OUT_OF_BOUNDS);
 	}
 
@@ -270,8 +277,8 @@ void List<T>::removeElement(Element<T>* element) {
 template<typename T>
 T List<T>::remove(uint64 index) {
 	if (index >= size()) {
-		debug(L"index", index);
-		debug(L"size", size());
+		debug("index", index);
+		debug("size", size());
 		crash(INDEX_OUT_OF_BOUNDS);
 	}
 
@@ -328,7 +335,7 @@ Iterator<T>::Iterator(Element<T>* current, List<T>* list) {
 template<typename T>
 bool Iterator<T>::hasNext() {
 	if (list->dirty) {
-		crash(L"concurrent modification");
+		crash("concurrent modification");
 	}
 	return current != NULL;
 }
@@ -336,16 +343,18 @@ bool Iterator<T>::hasNext() {
 template<typename T>
 T Iterator<T>::next() {
 	if (list->dirty) {
-		crash(L"concurrent modification");
+		crash("concurrent modification");
 	}
 	if (!hasNext()) {
-		crash(L"there is no next element");
+		crash("there is no next element");
 	}
 
 	T value = current->value;
 	current = current->next;
 
 	return value;
+}
+
 }
 
 #endif /* INCLUDE_LIST_H_ */
