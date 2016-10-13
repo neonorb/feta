@@ -25,7 +25,7 @@ typedef unsigned long uint64;
 typedef uint64 uinteger;
 
 
-typedef uint64 size;
+typedef uinteger size;
 
 }
 
