@@ -166,12 +166,18 @@ String toString(int value, int base) {
 }
 
 String operator ""_H(const strchar* arr, size length) {
+	// create
 	strchar* str = (strchar*) create(length * sizeof(strchar) + 1);
 
+	// copy
 	for (uint64 i = 0; i < length; i++) {
 		str[i] = arr[i];
 	}
 
+	// null terminate
+	((uint8*) str)[length * sizeof(strchar)] = 0;
+
+	// return
 	return (String) str;
 }
 
