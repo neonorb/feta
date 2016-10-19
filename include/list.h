@@ -64,6 +64,7 @@ public:
 
 	T get(uint64 index);
 	Element<T>* getElement(uint64 index);
+	T getLast();
 
 	void addElement(Element<T>* element);
 	void addElement(Element<T>* elemnt, uint64 index);
@@ -178,6 +179,11 @@ Element<T>* List<T>::getElement(uint64 index) {
 template<typename T>
 T List<T>::get(uint64 index) {
 	return getElement(index)->value;
+}
+
+template<typename T>
+T List<T>::getLast() {
+	return last->value;
 }
 
 // ---- add ----
