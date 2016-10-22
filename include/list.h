@@ -35,6 +35,7 @@ public:
 	Iterator(Element<T>* current, List<T>* list);
 
 	bool hasNext();
+	T peekNext();
 	T next();
 };
 
@@ -347,15 +348,20 @@ bool Iterator<T>::hasNext() {
 }
 
 template<typename T>
-T Iterator<T>::next() {
-	if (list->dirty) {
+T Iterator<T>::peekNext() {
+	if(list->dirty) {
 		crash("concurrent modification");
 	}
-	if (!hasNext()) {
+	if(!hasNext()) {
 		crash("there is no next element");
 	}
 
-	T value = current->value;
+	return current->value;
+}
+
+template<typename T>
+T Iterator<T>::next() {
+	T value = peekNext();
 	current = current->next;
 
 	return value;
