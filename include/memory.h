@@ -8,6 +8,7 @@
 #ifndef INCLUDE_MEMORY_H_
 #define INCLUDE_MEMORY_H_
 
+#undef NULL
 #define NULL 0
 
 #include <int.h>
