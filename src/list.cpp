@@ -5,4 +5,20 @@
  *      Author: chris
  */
 
+#include <list.h>
+#include <log.h>
+#include <errors.h>
 
+namespace feta {
+
+void _outOfBounds(uint64 index, uint64 size) {
+	debug("index", index);
+	debug("size", size);
+	crash(INDEX_OUT_OF_BOUNDS);
+}
+
+void _abort(String message) {
+	crash(message);
+}
+
+}

@@ -5,9 +5,9 @@
 
 namespace feta {
 
-typedef enum {
+enum LogType {
 	NORMAL, WARNING, FAULT
-} LogType;
+};
 
 void log(String message);
 void warning(String message);

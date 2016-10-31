@@ -8,18 +8,23 @@
 #ifndef INCLUDE_STRING_H_
 #define INCLUDE_STRING_H_
 
-#include <int.h>
-#include <bool.h>
-
 namespace feta {
 
 typedef char strchar;
 typedef const strchar* String;
 
+}
+
+#include <int.h>
+#include <bool.h>
+#include <list.h>
+
+namespace feta {
+
 size strlen(String str);
 bool strequ(String one, String two);
 bool stringStartsWith(String string, String beginning);
-
+String charListToString(List<strchar>* list);
 String substring(String string, uint64 start, uint64 end);
 
 String toString(int value, int base);

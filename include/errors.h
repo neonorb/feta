@@ -17,6 +17,4 @@
 #define FREE_FAILED "free-failed" // thrown when memory could not be freed
 #define FREE_FAILED_FREED_ALREADY "free-failed-freed-already" // thrown when memory could not be freed because it was freed already
 
-void crash(String message);
-
 #endif /* INCLUDE_ERRORS_H_ */

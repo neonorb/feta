@@ -8,6 +8,8 @@
 #ifndef INCLUDE_MEMORY_H_
 #define INCLUDE_MEMORY_H_
 
+#define NULL 0
+
 #include <int.h>
 #include <bool.h>
 #include <log.h>
@@ -22,8 +24,6 @@ void free(void*);
 }
 
 namespace feta {
-
-#define NULL 0
 
 #define MEMORY_LOG // TODO remove
 

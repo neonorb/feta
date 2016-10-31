@@ -9,15 +9,21 @@
 #define INCLUDE_LIST_H_
 
 namespace feta {
+
+template<typename T> class Element;
+template<typename T> class Iterator;
 template<typename T> class List;
+
 }
 
 #include <int.h>
 #include <bool.h>
 #include <string.h>
-#include <memory.h>
 
 namespace feta {
+
+void _abort(String message);
+void _outOfBounds(uint64 index, uint64 size);
 
 template<typename T> class Element {
 public:
@@ -80,12 +86,15 @@ public:
 	Iterator<T> iterator();
 };
 
+}
+
 // -- implementation --
 
 #include <list.h>
 #include <memory.h>
-#include <errors.h>
 #include <log.h>
+
+namespace feta {
 
 template<typename T>
 List<T>::List() {
@@ -163,9 +172,6 @@ template<typename T>
 Element<T>* List<T>::getElement(uint64 index) {
 	// TODO optimize for searching from last element too
 	if (index >= size()) {
-		debug("index", index);
-		debug("size", size());
-		crash(INDEX_OUT_OF_BOUNDS);
 	}
 
 	Element<T>* element = first;
@@ -284,9 +290,7 @@ void List<T>::removeElement(Element<T>* element) {
 template<typename T>
 T List<T>::remove(uint64 index) {
 	if (index >= size()) {
-		debug("index", index);
-		debug("size", size());
-		crash(INDEX_OUT_OF_BOUNDS);
+		_outOfBounds(index, size());
 	}
 
 	Element<T>* element = getElement(index);
@@ -342,18 +346,18 @@ Iterator<T>::Iterator(Element<T>* current, List<T>* list) {
 template<typename T>
 bool Iterator<T>::hasNext() {
 	if (list->dirty) {
-		crash("concurrent modification");
+		_abort("concurrent modification");
 	}
 	return current != NULL;
 }
 
 template<typename T>
 T Iterator<T>::peekNext() {
-	if(list->dirty) {
-		crash("concurrent modification");
+	if (list->dirty) {
+		_abort("concurrent modification");
 	}
-	if(!hasNext()) {
-		crash("there is no next element");
+	if (!hasNext()) {
+		_abort("there is no next element");
 	}
 
 	return current->value;

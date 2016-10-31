@@ -7,7 +7,6 @@
 
 #include <int.h>
 #include <memory.h>
-#include <log.h>
 
 namespace feta {
 
