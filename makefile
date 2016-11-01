@@ -2,7 +2,7 @@
 
 NAME=feta
 
-CSOURCES=list memory string log
+CSOURCES=list memory string log fetatest
 ASOURCES=
 
 LIBS=
