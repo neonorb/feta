@@ -7,6 +7,7 @@
 
 #include <int.h>
 #include <memory.h>
+#include <feta.h>
 
 namespace feta {
 
@@ -17,7 +18,9 @@ static void* allocatedThings[ALLOCATED_LENGTH] = { NULL };
 uint64 allocatedCount;
 
 #define watchCount 0
-static uint64 watchLocations[] = { };
+#if watchCount > 0
+static uint64 watchLocations[] = {};
+#endif
 
 void stop() {
 }
@@ -47,12 +50,14 @@ void* create(long unsigned int size) {
 			break;
 		}
 	}
+#if watchCount > 0
 	for (uint64 i = 0; i < watchCount; i++) {
 		if (watchLocations[i] == (uint64) thing) {
 			stop();
 			break;
 		}
 	}
+#endif
 #endif
 	return thing;
 }
@@ -80,5 +85,7 @@ void operator delete(void* object) {
 	feta::destroy(object);
 }
 void operator delete(void* object, unsigned long size) {
+	UNUSED(size);
+
 	feta::destroy(object);
 }

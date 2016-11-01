@@ -26,6 +26,7 @@ bool strequ(String one, String two);
 bool stringStartsWith(String string, String beginning);
 String charListToString(List<strchar>* list);
 String substring(String string, uint64 start, uint64 end);
+String concat(String one, String two);
 
 String toString(int value, int base);
 

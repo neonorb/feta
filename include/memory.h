@@ -11,6 +11,9 @@
 #undef NULL
 #define NULL 0
 
+// use this when the return value is not used
+#define VALUE_NOT_USED NULL
+
 #include <int.h>
 #include <bool.h>
 #include <log.h>

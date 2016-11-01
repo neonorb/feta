@@ -8,6 +8,12 @@
 #ifndef INCLUDE_FETA_H_
 #define INCLUDE_FETA_H_
 
+#include <memory.h>
+#include <string.h>
+#include <int.h>
+#include <bool.h>
+#include <log.h>
+
 // variable is never used
 #define UNUSED(x) (void)(x)
 
@@ -15,6 +21,9 @@
 #define CUNUSED(x) (void)(x)
 
 // not implemented
-#define NIMPL crash(__PRETTY_FUNCTION__" not implemented yet");
+#define NIMPL crash(concat(__PRETTY_FUNCTION__, " not implemented yet"))
+
+// should never happen
+#define SNH crash(concat(__PRETTY_FUNCTION__, concat(" should never reach this point in ",concat(__FILE__,concat(":",toString(__LINE__, 10))))))
 
 #endif /* INCLUDE_FETA_H_ */
