@@ -17,14 +17,15 @@ namespace feta {
 static void* allocatedThings[ALLOCATED_LENGTH] = { NULL };
 uint64 allocatedCount;
 
-#define watchCount 0
-#if watchCount > 0
-static uint64 watchLocations[] = {};
-#endif
+static uinteger watchLocations[] = { };
+static uinteger watchCount = sizeof(watchLocations) / sizeof(uinteger);
 
 void stop() {
 }
 
+/**
+ * Prints each thing allocated
+ */
 void dumpAllocated() {
 	debug("-----------------------------");
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
@@ -41,16 +42,23 @@ uint64 getAllocatedCount() {
 #endif
 
 void* create(long unsigned int size) {
+	// allocate memory
 	void* thing = fetaimpl::malloc(size);
+
 #ifdef MEMORY_LOG
+	// log the allocation
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == NULL) {
 			allocatedThings[i] = thing;
 			allocatedCount++;
 			break;
 		}
+		if (i == ALLOCATED_LENGTH - 1) {
+			crash("out of space for allocations - increase array size or turn off memory logging");
+		}
 	}
-#if watchCount > 0
+
+	// check if these is being watched, if so, stop
 	for (uint64 i = 0; i < watchCount; i++) {
 		if (watchLocations[i] == (uint64) thing) {
 			stop();
@@ -58,13 +66,16 @@ void* create(long unsigned int size) {
 		}
 	}
 #endif
-#endif
+
+	// return
 	return thing;
 }
 
 void destroy(void* object) {
+	// free memory
 	fetaimpl::free(object);
-#ifdef MEMORY_LOG
+
+	// unlog the allocation
 	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == object) {
 			allocatedThings[i] = NULL;
@@ -72,7 +83,6 @@ void destroy(void* object) {
 			break;
 		}
 	}
-#endif
 }
 
 }
