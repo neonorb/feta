@@ -77,7 +77,7 @@ void destroy(void* object) {
 
 }
 
-void* operator new(long unsigned int size) {
+void* operator new(unsigned long size) {
 	return feta::create(size);
 }
 
