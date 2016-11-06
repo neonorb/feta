@@ -10,6 +10,8 @@
 
 namespace feta {
 
+#define EOF '\4'
+
 // signed
 typedef signed char int8;
 typedef signed short int16;
