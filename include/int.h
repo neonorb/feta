@@ -10,6 +10,9 @@
 
 namespace feta {
 
+#ifdef EOF
+#undef EOF
+#endif
 #define EOF '\4'
 
 // signed
