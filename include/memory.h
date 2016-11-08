@@ -41,7 +41,7 @@ void destroy(void*);
 
 }
 
-void* operator new(long unsigned int size);
+void* operator new(unsigned long size);
 void operator delete(void* object);
 void operator delete(void* object, unsigned long size);
 

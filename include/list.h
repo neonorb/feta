@@ -19,6 +19,7 @@ template<typename T> class List;
 #include <int.h>
 #include <bool.h>
 #include <string.h>
+#include <feta.h>
 
 namespace feta {
 
@@ -89,10 +90,6 @@ public:
 }
 
 // -- implementation --
-
-#include <list.h>
-#include <memory.h>
-#include <log.h>
 
 namespace feta {
 
