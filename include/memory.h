@@ -41,8 +41,8 @@ void destroy(void*);
 
 }
 
-void* operator new(unsigned long size);
-void operator delete(void* object);
-void operator delete(void* object, unsigned long size);
+void* operator new(unsigned long size) __attribute__((used));
+void operator delete(void* object) __attribute__((used));
+void operator delete(void* object, unsigned long size) __attribute__((used));
 
 #endif /* INCLUDE_MEMORY_H_ */

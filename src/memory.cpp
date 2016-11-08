@@ -54,7 +54,8 @@ void* create(long unsigned int size) {
 			break;
 		}
 		if (i == ALLOCATED_LENGTH - 1) {
-			crash("out of space for allocations - increase array size or turn off memory logging");
+			crash(
+					"out of space for allocations - increase array size or turn off memory logging");
 		}
 	}
 
