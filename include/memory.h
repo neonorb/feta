@@ -29,7 +29,7 @@ void free(void*);
 
 namespace feta {
 
-#define MEMORY_LOG // TODO remove
+//#define MEMORY_LOG // TODO remove
 
 #ifdef MEMORY_LOG
 uint64 getAllocatedCount();
@@ -37,7 +37,8 @@ void dumpAllocated();
 #endif
 
 void* create(long unsigned int size);
-void destroy(void*);
+void destroy(void* object);
+void destroy(void* object, uinteger size);
 
 }
 
