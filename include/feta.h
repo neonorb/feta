@@ -8,11 +8,11 @@
 #ifndef INCLUDE_FETA_H_
 #define INCLUDE_FETA_H_
 
-#include <memory.h>
-#include <string.h>
-#include <int.h>
-#include <bool.h>
-#include <log.h>
+#include <feta/memory.h>
+#include <feta/string.h>
+#include <feta/int.h>
+#include <feta/bool.h>
+#include <feta/log.h>
 
 // variable is never used
 #define UNUSED(x) (void)(x)
