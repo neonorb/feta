@@ -11,7 +11,7 @@
 
 namespace feta {
 
-size strlen(String str) {
+size stringlength(String str) {
 	const strchar* char_ptr;
 	const unsigned long int* longword_ptr;
 	unsigned long int longword, himagic, lomagic;

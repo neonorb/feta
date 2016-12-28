@@ -16,9 +16,6 @@ template<typename T> class List;
 
 }
 
-#include <int.h>
-#include <bool.h>
-#include <string.h>
 #include <feta.h>
 
 namespace feta {

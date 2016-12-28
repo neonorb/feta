@@ -5,9 +5,7 @@
  *      Author: chris
  */
 
-#include <list.h>
-#include <log.h>
-#include <errors.h>
+#include <feta.h>
 
 namespace feta {
 

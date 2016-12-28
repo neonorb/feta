@@ -13,6 +13,10 @@
 #include <feta/int.h>
 #include <feta/bool.h>
 #include <feta/log.h>
+#include <feta/callback.h>
+#include <feta/list.h>
+#include <feta/stack.h>
+#include <feta/errors.h>
 
 // variable is never used
 #define UNUSED(x) (void)(x)

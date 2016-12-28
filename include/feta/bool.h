@@ -8,7 +8,7 @@
 #ifndef INCLUDE_BOOL_H_
 #define INCLUDE_BOOL_H_
 
-#include <int.h>
+#include <feta/int.h>
 
 namespace feta {
 

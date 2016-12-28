@@ -15,13 +15,13 @@ typedef const strchar* String;
 
 }
 
-#include <int.h>
-#include <bool.h>
-#include <list.h>
+#include <feta/int.h>
+#include <feta/bool.h>
+#include <feta/list.h>
 
 namespace feta {
 
-size strlen(String str);
+size stringlength(String str);
 bool strequ(String one, String two);
 bool stringStartsWith(String string, String beginning);
 String charListToString(List<strchar>* list);
@@ -30,8 +30,8 @@ String concat(String one, String two);
 
 String toString(int value, int base);
 
-String operator ""_H(const strchar* arr, size length);
-
 }
+
+feta::String operator ""_H(const feta::strchar* arr, feta::size length);
 
 #endif /* INCLUDE_STRING_H_ */

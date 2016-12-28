@@ -14,9 +14,9 @@
 // use this when the return value is not used
 #define VALUE_NOT_USED NULL
 
-#include <int.h>
-#include <bool.h>
-#include <log.h>
+#include <feta/int.h>
+#include <feta/bool.h>
+#include <feta/log.h>
 
 namespace fetaimpl {
 

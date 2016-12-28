@@ -5,8 +5,6 @@
  *      Author: chris
  */
 
-#include <int.h>
-#include <memory.h>
 #include <feta.h>
 
 namespace feta {
