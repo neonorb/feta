@@ -30,8 +30,8 @@ String concat(String one, String two);
 
 String toString(int value, int base);
 
-}
+String operator ""_H(const strchar* arr, size length);
 
-feta::String operator ""_H(const feta::strchar* arr, feta::size length);
+}
 
 #endif /* INCLUDE_STRING_H_ */
