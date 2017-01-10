@@ -13,7 +13,7 @@ namespace feta {
 
 #define ALLOCATED_LENGTH 100000
 static void* allocatedThings[ALLOCATED_LENGTH] = {NULL};
-uint64 allocatedCount;
+uinteger allocatedCount;
 
 static uinteger watchLocations[] = {};
 static uinteger watchCount = sizeof(watchLocations) / sizeof(uinteger);
@@ -26,7 +26,7 @@ void stop() {
  */
 void dumpAllocated() {
 	debug("-----------------------------");
-	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
+	for (uinteger i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] != NULL) {
 			debug("ALLOCATED", (uint64) allocatedThings[i]);
 		}
@@ -34,7 +34,7 @@ void dumpAllocated() {
 	debug("-----------------------------");
 }
 
-uint64 getAllocatedCount() {
+uinteger getAllocatedCount() {
 	return allocatedCount;
 }
 #endif
@@ -53,7 +53,7 @@ struct CacheEntry {
 static CacheEntry memoryCache[CACHE_LENGTH] = { {0, NULL}};
 #endif
 
-void* create(long unsigned int size) {
+void* create(size size) {
 #ifdef ENABLE_CACHE
 	// maybe cached?
 	for (uinteger i = 0; i > CACHE_LENGTH; i++) {
@@ -70,7 +70,7 @@ void* create(long unsigned int size) {
 
 #ifdef MEMORY_LOG
 	// log the allocation
-	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
+	for (uinteger i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == NULL) {
 			allocatedThings[i] = thing;
 			allocatedCount++;
@@ -83,8 +83,8 @@ void* create(long unsigned int size) {
 	}
 
 	// check if these is being watched, if so, stop
-	for (uint64 i = 0; i < watchCount; i++) {
-		if (watchLocations[i] == (uint64) thing) {
+	for (uinteger i = 0; i < watchCount; i++) {
+		if (watchLocations[i] == (uinteger) thing) {
 			stop();
 			break;
 		}
@@ -99,7 +99,7 @@ void destroy(void* object) {
 	destroy(object, 0);
 }
 
-void destroy(void* object, uinteger size) {
+void destroy(void* object, size size) {
 #ifndef ENABLE_CACHE
 	UNUSED(size);
 #endif
@@ -121,7 +121,7 @@ void destroy(void* object, uinteger size) {
 
 #ifdef MEMORY_LOG
 	// unlog the allocation
-	for (uint64 i = 0; i < ALLOCATED_LENGTH; i++) {
+	for (uinteger i = 0; i < ALLOCATED_LENGTH; i++) {
 		if (allocatedThings[i] == object) {
 			allocatedThings[i] = NULL;
 			allocatedCount--;
@@ -133,13 +133,13 @@ void destroy(void* object, uinteger size) {
 
 }
 
-void* operator new(unsigned long size) {
+void* operator new(feta::size size) {
 	return feta::create(size);
 }
 
 void operator delete(void* object) {
 	feta::destroy(object);
 }
-void operator delete(void* object, unsigned long size) {
+void operator delete(void* object, feta::size size) {
 	feta::destroy(object, size);
 }

@@ -32,18 +32,18 @@ namespace feta {
 //#define MEMORY_LOG // TODO remove
 
 #ifdef MEMORY_LOG
-uint64 getAllocatedCount();
+uinteger getAllocatedCount();
 void dumpAllocated();
 #endif
 
-void* create(long unsigned int size);
+void* create(feta::size size);
 void destroy(void* object);
-void destroy(void* object, uinteger size);
+void destroy(void* object, feta::size size);
 
 }
 
-void* operator new(unsigned long size);
+void* operator new(feta::size size);
 void operator delete(void* object);
-void operator delete(void* object, unsigned long size);
+void operator delete(void* object, feta::size size);
 
 #endif /* INCLUDE_MEMORY_H_ */

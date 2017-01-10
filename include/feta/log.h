@@ -15,10 +15,12 @@ void fault(String message);
 void log_write(LogType, String);
 
 void write_serial(char c);
+#ifdef BITS64
 void debug(String name, uint64 value);
+#endif
 void debug(String name, uint32 value);
 void debug(String name, void* value);
-void debug(String name, uint64 value, uint8 base);
+void debug(String name, uinteger value, uint8 base);
 void debug(String message);
 void debug(strchar message);
 void debugPrint(String message);

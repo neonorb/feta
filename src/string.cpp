@@ -132,7 +132,7 @@ size stringlength(String str) {
 }
 
 bool strequ(String one, String two) {
-	for (uint64 i = 0; true; i++) {
+	for (uinteger i = 0; true; i++) {
 		char a = one[i];
 		char b = two[i];
 
@@ -157,7 +157,7 @@ String charListToString(List<strchar>* list) {
 
 	// copy the list of characters to an actual string
 	Iterator<strchar> stringIterator = list->iterator();
-	uint64 strIndex = 0;
+	uinteger strIndex = 0;
 	while (stringIterator.hasNext()) {
 		str[strIndex] = stringIterator.next();
 		strIndex++;
@@ -168,10 +168,10 @@ String charListToString(List<strchar>* list) {
 	return str;
 }
 
-String substring(String string, uint64 start, uint64 end) {
+String substring(String string, uinteger start, uinteger end) {
 	strchar* newString = (strchar*) create(sizeof(strchar) * (end - start) + 1);
 
-	for (uint64 i = start; i < end; i++) {
+	for (uinteger i = start; i < end; i++) {
 		newString[i - start] = string[i];
 	}
 
@@ -181,7 +181,7 @@ String substring(String string, uint64 start, uint64 end) {
 }
 
 bool stringStartsWith(String string, String beginning) {
-	for (uint64 i = 0; true; i++) {
+	for (uinteger i = 0; true; i++) {
 		strchar s = string[i];
 		strchar b = beginning[i];
 
@@ -264,7 +264,7 @@ String operator ""_H(const strchar* arr, size length) {
 	strchar* str = (strchar*) create(length * sizeof(strchar) + 1);
 
 	// copy
-	for (uint64 i = 0; i < length; i++) {
+	for (uinteger i = 0; i < length; i++) {
 		str[i] = arr[i];
 	}
 

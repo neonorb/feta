@@ -18,6 +18,9 @@
 #include <feta/stack.h>
 #include <feta/errors.h>
 
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+
 // variable is never used
 #define UNUSED(x) (void)(x)
 

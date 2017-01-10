@@ -9,7 +9,7 @@
 
 namespace feta {
 
-void _outOfBounds(uint64 index, uint64 size) {
+void _outOfBounds(uinteger index, uinteger size) {
 	debug("index", index);
 	debug("size", size);
 	crash(INDEX_OUT_OF_BOUNDS);

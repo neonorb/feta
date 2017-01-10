@@ -24,7 +24,7 @@ public:
 	void push(T item);
 	T pop();
 	T peek();
-	T peek(uint64 distance);
+	T peek(uinteger distance);
 };
 
 // ---- constructors ----
@@ -70,7 +70,7 @@ T Stack<T>::peek() {
 }
 
 template<typename T>
-T Stack<T>::peek(uint64 distance) {
+T Stack<T>::peek(uinteger distance) {
 	if (list.size() - distance <= 0) {
 		crash("not enough elements to peek here");
 	}

@@ -21,7 +21,7 @@ template<typename T> class List;
 namespace feta {
 
 void _abort(String message);
-void _outOfBounds(uint64 index, uint64 size);
+void _outOfBounds(uinteger index, uinteger size);
 
 template<typename T> class Element {
 public:
@@ -47,7 +47,7 @@ template<typename T> class List {
 private:
 	Element<T>* first;
 	Element<T>* last;
-	uint64 length;
+	uinteger length;
 
 public:
 	List();
@@ -55,29 +55,29 @@ public:
 
 	bool dirty;
 
-	uint64 size();
+	uinteger size();
 	bool isEmpty();
-	uint64 indexOf(T item);
+	uinteger indexOf(T item);
 
-	bool isFirst(uint64 index);
+	bool isFirst(uinteger index);
 	bool isFirst(Element<T>* element);
 	bool isFirst(T item);
 
-	bool isLast(uint64 index);
+	bool isLast(uinteger index);
 	bool isLast(Element<T>* element);
 	bool isLast(T item);
 
-	T get(uint64 index);
-	Element<T>* getElement(uint64 index);
+	T get(uinteger index);
+	Element<T>* getElement(uinteger index);
 	T getLast();
 
 	void addElement(Element<T>* element);
-	void addElement(Element<T>* elemnt, uint64 index);
+	void addElement(Element<T>* elemnt, uinteger index);
 	void add(T item);
-	void add(T item, uint64 index);
+	void add(T item, uinteger index);
 
 	void removeElement(Element<T>* element);
-	T remove(uint64 index);
+	T remove(uinteger index);
 	void remove(T item);
 	void clear();
 
@@ -106,7 +106,7 @@ List<T>::~List() {
 // ---- simple stuffs ----
 
 template<typename T>
-uint64 List<T>::size() {
+uinteger List<T>::size() {
 	return length;
 }
 
@@ -116,8 +116,8 @@ bool List<T>::isEmpty() {
 }
 
 template<typename T>
-uint64 List<T>::indexOf(T item) {
-	for (uint64 i = 0; i < size(); i++) {
+uinteger List<T>::indexOf(T item) {
+	for (uinteger i = 0; i < size(); i++) {
 		if (get(i) == item) {
 			return i;
 		}
@@ -129,7 +129,7 @@ uint64 List<T>::indexOf(T item) {
 // ---- isFirst ----
 
 template<typename T>
-bool List<T>::isFirst(uint64 index) {
+bool List<T>::isFirst(uinteger index) {
 	return index == 0;
 }
 
@@ -146,7 +146,7 @@ bool List<T>::isFirst(T item) {
 // ---- isLast -----
 
 template<typename T>
-bool List<T>::isLast(uint64 index) {
+bool List<T>::isLast(uinteger index) {
 	return index == size() - 1;
 }
 
@@ -163,14 +163,14 @@ bool List<T>::isLast(T item) {
 // ---- get ----
 
 template<typename T>
-Element<T>* List<T>::getElement(uint64 index) {
+Element<T>* List<T>::getElement(uinteger index) {
 	// TODO optimize for searching from last element too
 	if (index >= size()) {
 	}
 
 	Element<T>* element = first;
 
-	for (uint64 i = 0; i < index; i++) {
+	for (uinteger i = 0; i < index; i++) {
 		element = element->next;
 	}
 
@@ -178,7 +178,7 @@ Element<T>* List<T>::getElement(uint64 index) {
 }
 
 template<typename T>
-T List<T>::get(uint64 index) {
+T List<T>::get(uinteger index) {
 	return getElement(index)->value;
 }
 
@@ -203,7 +203,7 @@ void List<T>::add(T item) {
 }
 
 template<typename T>
-void List<T>::addElement(Element<T>* element, uint64 index) {
+void List<T>::addElement(Element<T>* element, uinteger index) {
 	// TODO make addElementAfter and addElementBefore methods, call those from here
 	// update references
 	if (length == 0) { // initial
@@ -244,7 +244,7 @@ void List<T>::addElement(Element<T>* element, uint64 index) {
 }
 
 template<typename T>
-void List<T>::add(T item, uint64 index) {
+void List<T>::add(T item, uinteger index) {
 	Element<T>* element = new Element<T>();
 	element->value = item;
 
@@ -282,7 +282,7 @@ void List<T>::removeElement(Element<T>* element) {
 }
 
 template<typename T>
-T List<T>::remove(uint64 index) {
+T List<T>::remove(uinteger index) {
 	if (index >= size()) {
 		_outOfBounds(index, size());
 	}
@@ -299,7 +299,7 @@ T List<T>::remove(uint64 index) {
 template<typename T>
 void List<T>::remove(T item) {
 	Iterator<T> itemIterator = iterator();
-	uint64 i = 0;
+	uinteger i = 0;
 	while (itemIterator.hasNext()) {
 		T it = itemIterator.next();
 		if (it == item) {
@@ -313,7 +313,7 @@ void List<T>::remove(T item) {
 template<typename T>
 void List<T>::clear() {
 	while (size() > 0) {
-		remove((uint64) 0);
+		remove((uinteger) 0);
 	}
 }
 
