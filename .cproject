@@ -14,20 +14,21 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration buildProperties="" description="" id="0.1033518148" name="Default" parent="org.eclipse.cdt.build.core.prefbase.cfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="0.1033518148" name="Default" parent="org.eclipse.cdt.build.core.prefbase.cfg">
 					<folderInfo id="0.1033518148." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.base.1181763674" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.base">
 							<option id="cdt.managedbuild.option.gnu.cross.prefix.257154691" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
 							<option id="cdt.managedbuild.option.gnu.cross.path.1691475526" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1883590071" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-							<builder id="cdt.managedbuild.builder.gnu.cross.1602622255" managedBuildOn="false" name="Gnu Make Builder.Default" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder id="cdt.managedbuild.builder.gnu.cross.1602622255" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.528764500" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.775072454" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.964241749" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
-								<option id="gnu.cpp.compiler.option.include.paths.340396607" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.340396607" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/feta/include}&quot;"/>
 								</option>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.315485478" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1052790611" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.1841618579" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
@@ -51,12 +52,25 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="feta.null.1738001282" name="feta"/>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/feta"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="0.1033518148;0.1033518148.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.964241749;cdt.managedbuild.tool.gnu.cpp.compiler.input.1052790611">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.lib.debug.53818700;cdt.managedbuild.config.gnu.cross.lib.debug.53818700.;cdt.managedbuild.tool.gnu.cross.c.compiler.1392404497;cdt.managedbuild.tool.gnu.c.compiler.input.523570381">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.lib.debug.53818700;cdt.managedbuild.config.gnu.cross.lib.debug.53818700.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1313367308;cdt.managedbuild.tool.gnu.cpp.compiler.input.586913857">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.1033518148;0.1033518148.;cdt.managedbuild.tool.gnu.cross.c.compiler.528764500;cdt.managedbuild.tool.gnu.c.compiler.input.775072454">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.lib.release.1805844563;cdt.managedbuild.config.gnu.cross.lib.release.1805844563.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1540552083;cdt.managedbuild.tool.gnu.cpp.compiler.input.974566012">
@@ -72,7 +86,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

@@ -243,8 +243,8 @@ String toString(int value, int base) {
 }
 
 String concat(String one, String two) {
-	size oneSize = strlen(one);
-	size twoSize = strlen(two);
+	size oneSize = stringlength(one);
+	size twoSize = stringlength(two);
 	strchar* newString = (strchar*) create(
 			(size) ((oneSize + twoSize) * sizeof(strchar) + 1));
 
