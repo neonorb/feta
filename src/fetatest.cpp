@@ -6,8 +6,9 @@
  */
 
 #ifdef ALLOW_TEST
+
+#include <feta.h>
 #include <fetatest.h>
-#include <stack.h>
 
 using namespace feta;
 
@@ -102,4 +103,5 @@ namespace fetatest {
 	}
 
 }
+
 #endif

@@ -77,8 +77,7 @@ void* create(size size) {
 			break;
 		}
 		if (i == ALLOCATED_LENGTH - 1) {
-			crash(
-					"out of space for allocations - increase array size or turn off memory logging");
+			crash("out of space for allocations - increase array size or turn off memory logging");
 		}
 	}
 
@@ -131,9 +130,24 @@ void destroy(void* object, size size) {
 #endif
 }
 
+// dynamic initializtion
+void dynamicInit(uinteger offset) {
+	InitFunc* initializer = &__start_dynamicInit;
+
+	while (initializer < &__stop_dynamicInit) {
+		uinteger newLocation = ((uinteger) *initializer) + offset;
+		void (*offsetLocation)() = (void(*)()) newLocation;
+		offsetLocation();
+		initializer++;
+	}
+}
+
 }
 
 void* operator new(feta::size size) {
+	return feta::create(size);
+}
+void* operator new[](feta::size size) {
 	return feta::create(size);
 }
 
@@ -141,5 +155,11 @@ void operator delete(void* object) {
 	feta::destroy(object);
 }
 void operator delete(void* object, feta::size size) {
+	feta::destroy(object, size);
+}
+void operator delete[](void* object) {
+	feta::destroy(object);
+}
+void operator delete[](void* object, feta::size size) {
 	feta::destroy(object, size);
 }
