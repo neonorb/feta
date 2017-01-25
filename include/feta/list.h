@@ -74,7 +74,7 @@ public:
 	void addElement(Element<T>* element);
 	void addElement(Element<T>* elemnt, uinteger index);
 	void add(T item);
-	void add(T item, uinteger index);
+	void add(uinteger index, T item);
 
 	void removeElement(Element<T>* element);
 	T remove(uinteger index);
@@ -244,12 +244,11 @@ void List<T>::addElement(Element<T>* element, uinteger index) {
 }
 
 template<typename T>
-void List<T>::add(T item, uinteger index) {
+void List<T>::add(uinteger index, T item) {
 	Element<T>* element = new Element<T>();
 	element->value = item;
 
 	addElement(element, index);
-
 }
 
 // ---- remove ----
