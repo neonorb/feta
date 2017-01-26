@@ -92,6 +92,10 @@ namespace fetatest {
 
 		assert(strequ(first, second), "string not equal");
 
+		assert(stringlength("a") == 1, "string length not 1");
+		assert(stringlength("ab") == 2, "string length not 2");
+		assert(stringlength("abc") == 3, "string length not 3");
+
 		delete first;
 		delete second;
 	}
