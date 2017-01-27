@@ -10,8 +10,9 @@
 
 namespace feta {
 
-typedef char strchar;
-typedef const strchar* String;
+typedef char strchar; // TODO deprecated
+typedef char Strchar;
+typedef const Strchar* String;
 
 }
 
@@ -22,7 +23,7 @@ typedef const strchar* String;
 namespace feta {
 
 size stringlength(String str);
-bool strequ(String one, String two);
+bool strequ(String one, String two); // TODO rename
 bool stringStartsWith(String string, String beginning);
 String charListToString(List<strchar>* list);
 String substring(String string, uinteger start, uinteger end);
