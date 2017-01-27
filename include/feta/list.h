@@ -53,6 +53,8 @@ public:
 	List();
 	~List();
 
+	List<T>& operator=(List<T>& other);
+
 	bool dirty;
 
 	uinteger size();
@@ -67,7 +69,7 @@ public:
 	bool isLast(Element<T>* element);
 	bool isLast(T item);
 
-	T get(uinteger index);
+	T& get(uinteger index);
 	Element<T>* getElement(uinteger index);
 	T getLast();
 
@@ -75,6 +77,7 @@ public:
 	void addElement(Element<T>* elemnt, uinteger index);
 	void add(T item);
 	void add(uinteger index, T item);
+	void addAll(List<T>& items);
 
 	void removeElement(Element<T>* element);
 	T remove(uinteger index);
@@ -101,6 +104,14 @@ List<T>::List() {
 template<typename T>
 List<T>::~List() {
 	clear();
+}
+extern void debug(String);
+template<typename T>
+List<T>& List<T>::operator=(List<T>& other) {
+	clear();
+	addAll(other);
+
+	return *this;
 }
 
 // ---- simple stuffs ----
@@ -178,7 +189,7 @@ Element<T>* List<T>::getElement(uinteger index) {
 }
 
 template<typename T>
-T List<T>::get(uinteger index) {
+T& List<T>::get(uinteger index) {
 	return getElement(index)->value;
 }
 
@@ -249,6 +260,14 @@ void List<T>::add(uinteger index, T item) {
 	element->value = item;
 
 	addElement(element, index);
+}
+
+template<typename T>
+void List<T>::addAll(List<T>& items) {
+	Iterator<T> iterator = items.iterator();
+	while (iterator.hasNext()) {
+		add(iterator.next());
+	}
 }
 
 // ---- remove ----
