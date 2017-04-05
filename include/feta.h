@@ -18,6 +18,8 @@
 #include <feta/stack.h>
 #include <feta/errors.h>
 
+#define ARRAY_SIZE(array) (sizeof(array) / sizeof(*array))
+
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
 
