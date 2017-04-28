@@ -12,8 +12,8 @@
 
 using namespace feta;
 
-void assert(bool b, String message) {
-	if(!b) {
+void _assert(Boolean condition, String message) {
+	if(!condition) {
 		crash(message);
 	}
 }
@@ -101,6 +101,7 @@ namespace fetatest {
 	}
 
 	void test() {
+		log(" - feta");
 		list();
 		stack();
 		string();

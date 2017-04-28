@@ -11,7 +11,10 @@
 
 namespace feta {
 
-size stringlength(String str) {
+Size stringlength(String str) {
+	return stringLength(str);
+}
+Size stringLength(String str) {
 	const strchar* char_ptr;
 	const unsigned long int* longword_ptr;
 	unsigned long int longword, himagic, lomagic;
@@ -131,7 +134,10 @@ size stringlength(String str) {
 	return NULL;
 }
 
-bool strequ(String one, String two) {
+Boolean strequ(String one, String two) {
+	return stringEquals(one, two);
+}
+Boolean stringEquals(String one, String two) {
 	for (uinteger i = 0; true; i++) {
 		char a = one[i];
 		char b = two[i];
@@ -180,7 +186,7 @@ String substring(String string, uinteger start, uinteger end) {
 	return newString;
 }
 
-bool stringStartsWith(String string, String beginning) {
+Boolean stringStartsWith(String string, String beginning) {
 	for (uinteger i = 0; true; i++) {
 		strchar s = string[i];
 		strchar b = beginning[i];
@@ -205,7 +211,7 @@ bool stringStartsWith(String string, String beginning) {
 	return false;
 }
 
-strchar returnedString[10];
+static Strchar returnedString[10];
 String toString(int value, int base) {
 	strchar* str = returnedString;
 	strchar* rc;
@@ -259,7 +265,7 @@ String concat(String one, String two) {
 	return newString;
 }
 
-String operator ""_H(const strchar* arr, size length) {
+String operator ""_H(const Strchar* arr, size length) {
 	// create
 	strchar* str = (strchar*) create(length * sizeof(strchar) + 1);
 

@@ -22,16 +22,18 @@ typedef const Strchar* String;
 
 namespace feta {
 
-size stringlength(String str);
-bool strequ(String one, String two); // TODO rename
-bool stringStartsWith(String string, String beginning);
-String charListToString(List<strchar>* list);
+Size stringlength(String str); // TODO deprecated
+Size stringLength(String str);
+Boolean strequ(String one, String two); // TODO deprecated
+Boolean stringEquals(String one, String two);
+Boolean stringStartsWith(String string, String beginning);
+String charListToString(List<Strchar>* list);
 String substring(String string, uinteger start, uinteger end);
 String concat(String one, String two);
 
 String toString(int value, int base);
 
-String operator ""_H(const strchar* arr, size length);
+String operator ""_H(const Strchar* arr, Size length);
 
 }
 

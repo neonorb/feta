@@ -11,7 +11,8 @@
 #ifdef ALLOW_TEST
 #include <string.h>
 
-void assert(bool b, feta::String message);
+void _assert(feta::Boolean condition, feta::String message);
+#define assert(condition, message) _assert(condition, "Assertion failed @ " __FILE__ ":" STR(__LINE__) " : " message)
 
 namespace fetatest {
 
