@@ -21,6 +21,9 @@
 #define FIRST(one, two) one
 #define SECOND(one, two) two
 
+#define CONCAT_IMPL( x, y ) x##y
+#define MACRO_CONCAT( x, y ) CONCAT_IMPL( x, y )
+
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(*array))
 
 #define STR_HELPER(x) #x
