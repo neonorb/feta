@@ -13,6 +13,7 @@
 
 void _assert(feta::Boolean condition, feta::String message);
 #define assert(condition, message) _assert(condition, "Assertion failed @ " __FILE__ ":" STR(__LINE__) " : " message)
+#define assertnm(condition) _assert(condition, "Assertion failed @ " __FILE__ ":" STR(__LINE__))
 
 namespace fetatest {
 
